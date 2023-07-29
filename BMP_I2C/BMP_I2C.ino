@@ -2,6 +2,7 @@
 #include <bmp3.h>
 #include <bmp3_defs.h>
 #include <Wire.h>
+#include "SD_Module/sd_card_test_v2.ino"
 
 # define SDA 0
 # define SCL 1
@@ -47,6 +48,8 @@ float readPressure() {
 }
 
 
+// Use SD.begin(10) to intialize the SD Card functionality
+
 void setup() {
   Wire.begin(SDA, SCL);
   Serial.begin(115200);
@@ -57,6 +60,8 @@ void setup() {
   delay(100);
   writeRegister(0x1C, 0x01); // Set the sensor mode to normal
 }
+
+// Use sdLoop(float tmpTemp, float bmpTemp, float bmpPressure) to start the writing loop
 
 void loop() {
   // Read temperature and pressure data from BMP388 sensor
@@ -71,6 +76,8 @@ void loop() {
   Serial.print("Pressure: ");
   Serial.print(pressure);
   Serial.println(" Pa");
+
+  // sdLoop(temperature, temperature, pressure)
   
   delay(1000);
 }
